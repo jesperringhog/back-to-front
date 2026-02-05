@@ -1,4 +1,4 @@
-export type ApiResponseError = {
+export type ApiErrorResponse = {
     message: string;
     stacktrace: any;
 }

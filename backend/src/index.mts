@@ -1,6 +1,6 @@
 import express, { json } from "express";
 import cors from "cors";
-import { someThingsRouter } from "./routes/someThingsRouter.mjs";
+import { someRouter } from "./routes/someRouter.mjs";
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(cors({
     origin: "http://localhost:5173"
 }));
 
-app.use("/somethings", someThingsRouter);
+app.use("/somethings", someRouter);
 
 app.listen(3000, (error) => {
     if (error) {
