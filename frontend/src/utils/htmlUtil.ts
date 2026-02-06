@@ -1,20 +1,21 @@
 import type { SomeThing } from "../models/SomeThing";
 
-export const createHtml = (things: SomeThing[]) => {
-    const someList = document.getElementById("someList");
-    if (!someList) return;
-    someList.innerHTML = "";
+export const createHtml = (everything: SomeThing[]) => {
+    const thingList = document.getElementById("thingList");
+    if (!thingList) return;
+    thingList.innerHTML = "";
 
-    things.forEach((thing) => {
+    everything.forEach((thing) => {
         const listItem = document.createElement("li");
         const id = document.createElement("h2");
         const name = document.createElement("h4");
 
+        listItem.className = "listItem";
         id.innerHTML = thing.id.toString();
         name.innerHTML = thing.name;
 
         listItem.appendChild(id);
         listItem.appendChild(name);
-        someList.appendChild(listItem);
+        thingList.appendChild(listItem);
     })
 }

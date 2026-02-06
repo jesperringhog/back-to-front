@@ -1,9 +1,9 @@
 import type { SomeThing } from "../models/SomeThing.mjs";
 
 export const everyThing: SomeThing[] = [
-    { id: 1, name: "water"},
-    { id: 2, name: "fire"},
-    { id: 3, name: "watermelon"},
-    { id: 4, name: "firepost"},
+    { id: 1, name: "star"},
+    { id: 2, name: "hat"},
+    { id: 3, name: "cinnamon"},
+    { id: 4, name: "apple"},
 
 ]

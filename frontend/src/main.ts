@@ -1,25 +1,20 @@
-import { createSomeThing, getSomeThings } from './services/someService';
+import { getThing, getThings } from './services/thingService';
 import './style.css'
 import { createHtml } from './utils/htmlUtil';
 
-document.getElementById("someForm")?.addEventListener("submit", async(e) => {
+document.getElementById("thingForm")?.addEventListener("submit", async(e) => {
     e.preventDefault();
 
-    const someInput = document.getElementById("someInput");
+    const thingInput = (document.getElementById("thingInput") as HTMLInputElement);
 
-    let userInput = ""
-    if (someInput) {
-        userInput = (someInput as HTMLInputElement).value;
+    let userInput = "";
+    if (thingInput) {
+        userInput = thingInput.value;
     }
 
-    const data = await createSomeThing(userInput);
-    console.log(data);
-    
-
-    const someThings = await getSomeThings();
-
-    createHtml(someThings);
+    const data = await getThing(userInput);
+    createHtml(data);
 })
 
-const data = await getSomeThings();
+const data = await getThings();
 createHtml(data);
