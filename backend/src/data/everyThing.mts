@@ -1,6 +1,6 @@
 import type { SomeThing } from "../models/SomeThing.mjs";
 
-export const someThings: SomeThing[] = [
+export const everyThing: SomeThing[] = [
     { id: 1, name: "water"},
     { id: 2, name: "fire"},
     { id: 3, name: "watermelon"},

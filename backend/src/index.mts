@@ -1,20 +1,23 @@
 import express, { json } from "express";
 import cors from "cors";
-import { someRouter } from "./routes/someRouter.mjs";
+import { thingRouter } from "./routes/thingRouter.mjs";
 
 const app = express();
 
 app.use(json());
-app.use(cors({
-    origin: "http://localhost:5173"
-}));
 
-app.use("/somethings", someRouter);
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  }),
+);
+
+app.use("/everything", thingRouter);
 
 app.listen(3000, (error) => {
-    if (error) {
-        console.error(error);
-    } else {
-        console.log("api is running");
-    }
-})
+  if (error) {
+    console.error(error);
+  } else {
+    console.log("Api is running");
+  }
+});
