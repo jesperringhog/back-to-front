@@ -1,16 +1,19 @@
 import type QueryString from "qs";
-import { everyThing } from "../data/everyThing.mjs";
-import type { SomeThing } from "../models/SomeThing.mjs";
+// import { everyThing } from "../data/everyThing.mjs";
+import type { Thing } from "../models/Thing.mjs";
+import { ThingModel } from "../models/ThingSchema.mjs";
 
-export const createThing = (thingName: string) => {
-  const newThing: SomeThing = { id: Date.now(), name: thingName, done: false };
+export const createThing = async (someThing: string) => {
+  // const newThing: Thing = { id: Date.now(), name: someThing, done: false };
 
-  everyThing.push(newThing);
+  // everyThing.push(newThing);
+
+  const newThing = await ThingModel.create({ id: Date.now(), name: someThing });
 
   return newThing;
 };
 
-export const getThings = (
+export const getThings = async (
   filter:
     | string
     | QueryString.ParsedQs
@@ -22,7 +25,9 @@ export const getThings = (
     | (string | QueryString.ParsedQs)[]
     | undefined,
 ) => {
-  let filteredThings = [...everyThing];
+  const things = await ThingModel.find();
+
+  let filteredThings = [...things];
 
   if (filter) {
     filteredThings = filteredThings.filter((thing) =>
@@ -38,25 +43,34 @@ export const getThings = (
   return filteredThings;
 };
 
-export const getThing = (id: string) =>
-  everyThing.find((thing) => thing.id === +id);
+export const getThing = async (id: string) =>
+  // everyThing.find((thing) => thing.id === +id);
+  await ThingModel.findOne({ id: +id });
 
-export const updateThing = (thing: SomeThing) => {
-  const found = everyThing.find((t) => t.id === thing.id);
+export const updateThing = async (thing: Thing) => {
+  // const found = everyThing.find((t) => t.id === thing.id);
 
-  if (found) {
-    found.name = thing.name;
-    found.done = thing.done;
-  }
+  // if (found) {
+  //   found.name = thing.name;
+  //   found.done = thing.done;
+  // }
+  
+  await ThingModel.findOneAndUpdate({ id: thing.id }, thing);
 
-  return found;
+  return thing;
 };
 
-export const removeThing = (id: string) => {
-  const index = everyThing.findIndex((thing) => thing.id === +id);
+export const removeThing = async (id: string) => {
+  // const index = everyThing.findIndex((thing) => thing.id === +id);
 
-  if (index >= 0) {
-    everyThing.splice(index, 1);
+  // if (index >= 0) {
+  //   // everyThing.splice(index, 1);
+  //   return true;
+  // }
+
+  const removedThing = await ThingModel.findOneAndDelete({ id: +id });
+
+  if (removedThing) {
     return true;
   }
 

@@ -8,21 +8,21 @@ import {
   updateThing,
 } from "../controllers/thingController.mjs";
 import type { ApiResponse } from "../models/ApiResponse.mjs";
-import type { SomeThing } from "../models/SomeThing.mjs";
+import type { Thing } from "../models/Thing.mjs";
 
 export const thingRouter = express.Router();
 
-thingRouter.post("/", (req, res) => {
+thingRouter.post("/", async (req, res) => {
   try {
-    const { bodyPart }: { bodyPart: string } = req.body;
+    const { someThing }: { someThing: string } = req.body;
 
-    if (bodyPart && bodyPart !== "") {
-      const newThing = createThing(bodyPart);
+    if (someThing && someThing !== "") {
+      const newThing = await createThing(someThing);
 
       res.status(201).json(newThing);
     } else {
       res.status(400).json({
-        message: "body does not contain bodyPart, or has nothing as value for bodyPart",
+        message: "body does not contain someThing, or has nothing as value for bodyPart",
       } satisfies ApiResponse);
     }
   } catch (error) {
@@ -33,11 +33,11 @@ thingRouter.post("/", (req, res) => {
   }
 });
 
-thingRouter.get("/", (req, res) => {
+thingRouter.get("/", async (req, res) => {
   try {
     const { filter, sort } = req.query;
 
-    const things = getThings(filter, sort);
+    const things = await getThings(filter, sort);
 
     res.status(200).json(things);
   } catch (error) {
@@ -45,11 +45,11 @@ thingRouter.get("/", (req, res) => {
   }
 });
 
-thingRouter.get("/:id", (req, res) => {
+thingRouter.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const found = getThing(id);
+    const found = await getThing(id);
 
     if (found) {
       res.status(200).json(found);
@@ -64,17 +64,17 @@ thingRouter.get("/:id", (req, res) => {
   }
 });
 
-thingRouter.patch("/:id", (req, res) => {
+thingRouter.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { someThing }: { someThing: SomeThing } = req.body;
+    const { someThing }: { someThing: Thing } = req.body;
 
     if (+id !== someThing.id) {
       res.status(400).json({
         message: "id does not match with this thing",
       } satisfies ApiResponse);
     } else {
-      const found = updateThing(someThing);
+      const found = await updateThing(someThing);
 
       if (found) {
         res.status(200).json(found);
@@ -90,11 +90,11 @@ thingRouter.patch("/:id", (req, res) => {
   }
 });
 
-thingRouter.delete("/:id", (req, res) => {
+thingRouter.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const success = removeThing(id);
+    const success = await removeThing(id);
 
     if (success) {
       res.status(204).json();
