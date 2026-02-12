@@ -3,6 +3,7 @@ import cors from "cors";
 import { thingRouter } from "./routes/thingRouter.mjs";
 import mongoose from "mongoose";
 import { config } from "dotenv";
+import { originRouter } from "./routes/originRouter.mjs";
 
 config();
 
@@ -24,6 +25,8 @@ app.use(
 );
 
 app.use("/everything", thingRouter);
+
+app.use("/origin", originRouter);
 
 app.listen(port, async (error) => {
   try {

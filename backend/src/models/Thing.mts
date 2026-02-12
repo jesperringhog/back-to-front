@@ -1,5 +1,5 @@
 export type Thing = {
     id: number;
-    name: string;
-    done: false;
+    text: string;
+    objective: false;
 }
