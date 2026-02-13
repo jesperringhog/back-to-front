@@ -1,5 +1,5 @@
 export type ThingDTO = {
-    id: number,
-    text: string,
-    objective: boolean
-}
+  id: number;
+  text: string;
+  objective: boolean;
+};

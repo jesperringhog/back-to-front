@@ -3,15 +3,10 @@ import type QueryString from "qs";
 import type { Thing } from "../models/Thing.mjs";
 import { ThingModel } from "../models/ThingSchema.mjs";
 
-export const createThing = async (someThing: string) => {
+export const createThing = async (someThing: string) =>
   // const newThing: Thing = { id: Date.now(), name: someThing, done: false };
-
   // everyThing.push(newThing);
-
-  const newThing = await ThingModel.create({ id: Date.now(), name: someThing });
-
-  return newThing;
-};
+  await ThingModel.create({ id: Date.now(), text: someThing });
 
 export const getThings = async (
   filter:
@@ -31,7 +26,7 @@ export const getThings = async (
 
   if (filter) {
     filteredThings = filteredThings.filter((thing) =>
-      thing.name.toLowerCase().includes(filter.toString()),
+      thing.text.toLowerCase().includes(filter.toString()),
     );
   }
 
@@ -54,7 +49,7 @@ export const updateThing = async (thing: Thing) => {
   //   found.name = thing.name;
   //   found.done = thing.done;
   // }
-  
+
   await ThingModel.findOneAndUpdate({ id: thing.id }, thing);
 
   return thing;

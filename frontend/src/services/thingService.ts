@@ -7,7 +7,7 @@ export const createThing = async (something: string) => {
     const response = await fetch(baseUrl, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ bodyPart: something }),
+      body: JSON.stringify({ someThing: something }),
     });
     const data: SomeThing = await response.json();
     return data;

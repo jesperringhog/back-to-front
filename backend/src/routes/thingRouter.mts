@@ -22,7 +22,7 @@ thingRouter.post("/", async (req, res) => {
       res.status(201).json(newThing);
     } else {
       res.status(400).json({
-        message: "body does not contain someThing, or has nothing as value for bodyPart",
+        message: "body does not contain someThing, or has nothing as value for someThing",
       } satisfies ApiResponse);
     }
   } catch (error) {

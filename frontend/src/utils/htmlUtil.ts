@@ -9,23 +9,23 @@ export const createHtml = (everything: SomeThing[]) => {
   everything.forEach((thing) => {
     const listItem = document.createElement("li");
     const id = document.createElement("h2");
-    const name = document.createElement("h4");
+    const text = document.createElement("h4");
     const updateBtn = document.createElement("button");
     const removeBtn = document.createElement("button");
 
     listItem.className = "listItem";
     id.innerHTML = thing.id.toString();
-    name.innerHTML = thing.name;
+    text.innerHTML = thing.text;
     updateBtn.innerHTML = "Update";
 
-    if (thing.done) {
-      name.className = "done";
+    if (thing.objective) {
+      text.className = "done";
     }
 
     updateBtn.addEventListener("click", async () => {
       const success = await updateThing(thing.id, {
         ...thing,
-        done: !thing.done,
+        objective: !thing.objective,
       });
 
       if (success) {
@@ -46,7 +46,7 @@ export const createHtml = (everything: SomeThing[]) => {
     });
 
     listItem.appendChild(id);
-    listItem.appendChild(name);
+    listItem.appendChild(text);
     listItem.appendChild(updateBtn);
     listItem.appendChild(removeBtn);
     thingList.appendChild(listItem);

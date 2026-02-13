@@ -1,7 +1,7 @@
 import type { ThingDTO } from "./ThingDTO.mjs"
 
-export type OriginDTO = {
+export type UserDTO = {
     id: number,
-    category: string,
+    name: string,
     things: ThingDTO[];
 }
